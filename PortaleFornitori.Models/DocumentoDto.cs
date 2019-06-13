@@ -13,5 +13,6 @@ namespace PortaleFornitori.Models
         public System.DateTime DataCreazione { get; set; }
         public string NomeFile { get; set; }
         public string RagioneSocialeFornitore { get; set; }
+        public bool Attivo { get; set; }
     }
 }

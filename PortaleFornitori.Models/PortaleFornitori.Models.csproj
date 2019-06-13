@@ -80,6 +80,9 @@
     <Compile Include="Ruolo.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Utente.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

@@ -21,6 +21,7 @@ namespace PortaleFornitori.Models
         public byte[] Contenuto { get; set; }
         public int IdFornitore { get; set; }
         public string ContentType { get; set; }
+        public bool Attivo { get; set; }
     
         public virtual Fornitore Fornitori { get; set; }
     }

@@ -26,3 +26,17 @@ C:\Users\tecno\Documents\GitHub\PortaleFornitori\PortaleFornitori.Models\obj\Deb
 C:\Users\tecno\Documents\GitHub\PortaleFornitori\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.csproj.CopyComplete
 C:\Users\tecno\Documents\GitHub\PortaleFornitori\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.dll
 C:\Users\tecno\Documents\GitHub\PortaleFornitori\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.pdb
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\bin\Debug\PortaleFornitori.Models.dll.config
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\bin\Debug\PortaleFornitori.Models.dll
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\bin\Debug\PortaleFornitori.Models.pdb
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\bin\Debug\EntityFramework.dll
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\bin\Debug\EntityFramework.xml
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\bin\Debug\it\EntityFramework.resources.dll
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\bin\Debug\it\EntityFramework.SqlServer.resources.dll
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.csprojAssemblyReference.cache
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.csproj.CoreCompileInputs.cache
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.csproj.CopyComplete
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.dll
+C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.pdb

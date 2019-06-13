@@ -16,6 +16,7 @@
           <Property Name="Contenuto" Type="varbinary(max)" Nullable="false" />
           <Property Name="IdFornitore" Type="int" Nullable="false" />
           <Property Name="ContentType" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Attivo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Fornitori">
           <Key>
@@ -44,6 +45,16 @@
           </Key>
           <Property Name="IdRuolo" Type="int" Nullable="false" />
           <Property Name="DescrizioneRuolo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Utenti">
           <Key>
@@ -110,6 +121,7 @@
           <EntitySet Name="Fornitori" EntityType="Self.Fornitori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Funzioni" EntityType="Self.Funzioni" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ruoli" EntityType="Self.Ruoli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Utenti" EntityType="Self.Utenti" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Documenti_Fornitori" Association="Self.FK_Documenti_Fornitori">
             <End Role="Fornitori" EntitySet="Fornitori" />
@@ -144,6 +156,7 @@
           <Property Name="IdFornitore" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Fornitori" Relationship="Self.FK_Documenti_Fornitori" FromRole="Documenti" ToRole="Fornitori" />
           <Property Name="ContentType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Attivo" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Fornitore">
           <Key>
@@ -191,6 +204,7 @@
             <End Role="Funzioni" EntitySet="Funzioni" />
             <End Role="Funzioni1" EntitySet="Funzioni" />
           </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="PortaleFornitoriModel.sysdiagrams" />
         </EntityContainer>
         <EntityType Name="Ruolo">
           <Key>
@@ -263,6 +277,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -272,6 +296,7 @@
           <EntitySetMapping Name="Documenti">
             <EntityTypeMapping TypeName="PortaleFornitoriModel.Documento">
               <MappingFragment StoreEntitySet="Documenti">
+                <ScalarProperty Name="Attivo" ColumnName="Attivo" />
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="IdDocumento" ColumnName="IdDocumento" />
                 <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
@@ -323,6 +348,17 @@
                 <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
                 <ScalarProperty Name="Icona" ColumnName="Icona" />
                 <ScalarProperty Name="IdFunzione" ColumnName="IdFunzione" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PortaleFornitoriModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

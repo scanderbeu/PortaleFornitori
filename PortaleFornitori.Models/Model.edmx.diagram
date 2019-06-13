@@ -14,6 +14,7 @@
         <AssociationConnector Association="PortaleFornitoriModel.FK_Utenti_Ruoli" />
         <EntityTypeShape EntityType="PortaleFornitoriModel.Funzione" Width="1.5" PointX="0.75" PointY="4.75" />
         <AssociationConnector Association="PortaleFornitoriModel.FK_Funzioni_Funzioni" />
+        <EntityTypeShape EntityType="PortaleFornitoriModel.sysdiagrams" Width="1.5" PointX="6.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

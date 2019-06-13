@@ -12,6 +12,7 @@
     <Property Name="IdFornitore" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Fornitori" Relationship="Self.FK_Documenti_Fornitori" FromRole="Documenti" ToRole="Fornitori" />
     <Property Name="ContentType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Attivo" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Fornitore">
     <Key>
@@ -59,6 +60,7 @@
       <End Role="Funzioni" EntitySet="Funzioni" />
       <End Role="Funzioni1" EntitySet="Funzioni" />
     </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="PortaleFornitoriModel.sysdiagrams" />
   </EntityContainer>
   <EntityType Name="Ruolo">
     <Key>
@@ -131,4 +133,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
 </Schema>

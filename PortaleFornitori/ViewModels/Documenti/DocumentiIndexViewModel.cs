@@ -20,6 +20,7 @@ namespace PortaleFornitori.ViewModels.Documenti
             var numeroDiDocumenti = ctx.Documenti.Count();
             vm.NumeroPagine = (int)Math.Ceiling(numeroDiDocumenti / (decimal)pageSize);
             vm.Documenti = ctx.Documenti
+                .Where(o => o.Attivo)
                 .OrderBy(o => o.IdDocumento)
                 .Skip((vm.PaginaCorrente - 1) * pageSize)
                 .Take(pageSize)

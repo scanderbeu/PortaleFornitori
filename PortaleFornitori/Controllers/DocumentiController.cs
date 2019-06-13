@@ -127,8 +127,9 @@ namespace PortaleFornitori.Controllers
             {
                 if (documento != null)
                 {
-                    Context.Entry(documento).State = System.Data.Entity.EntityState.Deleted;
-                    //Context.Utenti.Remove(utente);
+                    var documento1 = Context.Documenti.Where(w => w.IdDocumento == documento.IdDocumento).FirstOrDefault();
+                    documento1.Attivo = false;
+                    Context.Entry(documento1).State = System.Data.Entity.EntityState.Modified;
                     Context.SaveChanges();
                     success = true;
                 }
