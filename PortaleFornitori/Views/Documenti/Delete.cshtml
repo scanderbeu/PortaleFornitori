@@ -1,0 +1,34 @@
+﻿@model PortaleFornitori.ViewModels.Documenti.DocumentoDeleteViewModel
+
+@{
+    /**/
+
+    ViewBag.Title = "Create";
+}
+
+<h2>Eliminazione documento</h2>
+
+@using (Html.BeginForm("Delete", "Documenti", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(false,"Errore")
+    <div class="form-group">
+        @Html.HiddenFor(m=>m.Documento.IdDocumento)
+        <p>Sei sicuro di voler eliminare l'utente @Model.Documento.NomeFile per il fornitore @Model.Documento.Fornitori.RagioneSociale ?</p>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+            <a href="@Url.Action("Index","Documenti")">
+                <span class="btn btn-danger">
+                    Annulla
+                </span>
+            </a>
+        </div>
+        <div class="col-sm-6">
+            <button class="btn btn-success">
+                Elimina
+            </button>
+        </div>
+    </div>
+
+}
+

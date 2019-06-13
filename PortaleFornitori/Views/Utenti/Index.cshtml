@@ -1,0 +1,42 @@
+﻿@model PortaleFornitori.ViewModels.Utenti.UtentiIndexViewModel
+
+    
+    <table class="table table-bordered table-striped" >
+        <tr>
+            <th>
+                <a href="@Url.Action("Create", new { id=0 })">
+                    <span class="btn btn-success">
+                        Aggiungi
+                    </span>
+                </a>
+            </th>
+            <th>Email</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Ruolo</th>
+            <th>Fornitore</th>
+        </tr>
+    @foreach (var item in Model.Utenti) {
+        <tr>
+            <td>
+                <a href="@Url.Action("Edit",new { id= item.IdUser })">
+                    <span class="btn btn-primary">
+                        Modifica
+                    </span>
+                </a>
+                <a href="@Url.Action("Delete",new { id= item.IdUser })">
+                    <span class="btn btn-danger">
+                        Cancella
+                    </span>
+                </a>
+            </td>
+            <td>@item.Email</td>
+            <td>@item.Nome</td>
+            <td>@item.Cognome</td>
+            <td>@item.Ruolo.DescrizioneRuolo</td>
+            <td>@(item.Fornitore == null ? String.Empty : item.Fornitore.RagioneSociale)</td>
+        </tr>
+    }
+    
+    </table>
+

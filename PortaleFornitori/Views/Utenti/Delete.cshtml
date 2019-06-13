@@ -1,0 +1,34 @@
+﻿@model PortaleFornitori.ViewModels.Utenti.UtentiDeleteViewModel
+
+@{
+    /**/
+
+    ViewBag.Title = "Create";
+}
+
+<h2>Eliminazione Utente</h2>
+
+@using (Html.BeginForm("Delete", "Utenti", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(false,"Errore")
+    <div class="form-group">
+        @Html.HiddenFor(m=>m.Utente.IdUser)
+        <p>Sei sicuro di voler eliminare l'utente @Model.Utente.Email ?</p>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+            <a href="@Url.Action("Index","Utenti")">
+                <span class="btn btn-danger">
+                    Annulla
+                </span>
+            </a>
+        </div>
+        <div class="col-sm-6">
+            <button class="btn btn-success">
+                Elimina
+            </button>
+        </div>
+    </div>
+
+}
+

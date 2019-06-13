@@ -1,0 +1,17 @@
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\bin\Debug\PortaleFornitori.Test.exe.config
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\bin\Debug\PortaleFornitori.Test.exe
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\bin\Debug\PortaleFornitori.Test.pdb
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\bin\Debug\EntityFramework.dll
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\bin\Debug\EntityFramework.SqlServer.dll
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\bin\Debug\PortaleFornitori.Models.dll
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\bin\Debug\PortaleFornitori.Models.pdb
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\bin\Debug\PortaleFornitori.Models.dll.config
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\bin\Debug\EntityFramework.xml
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\bin\Debug\EntityFramework.SqlServer.xml
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\bin\Debug\it\EntityFramework.resources.dll
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\bin\Debug\it\EntityFramework.SqlServer.resources.dll
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\obj\Debug\PortaleFornitori.Test.csprojResolveAssemblyReference.cache
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\obj\Debug\PortaleFornitori.Test.csproj.CoreCompileInputs.cache
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\obj\Debug\PortaleFornitori.Test.csproj.CopyComplete
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\obj\Debug\PortaleFornitori.Test.exe
+C:\Corso\PortaleFornitori\PortaleFornitori.Test\obj\Debug\PortaleFornitori.Test.pdb

@@ -1,0 +1,73 @@
+﻿@model PortaleFornitori.ViewModels.Documenti.DocumentiIndexViewModel
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                <a href="@Url.Action("Create", new { id=0 })">
+                    <span class="btn btn-success">Aggiungi</span>
+                </a>
+            </th>
+            <th>Nome File</th>
+            <th>Descrizione</th>
+            <th>Fornitore</th>
+            <th>Data Creazione</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doc in Model.Documenti)
+        {
+            <tr>
+                <td>
+                    <a target="_blank" href="@Url.Action("Download",new { id = doc.IdDocumento  })">
+                        <span class="btn btn-primary">Download</span>
+                    </a>
+                    <a href="@Url.Action("Delete",new { id = doc.IdDocumento })">
+                        <span class="btn btn-danger">Elimina</span>
+                    </a>
+                </td>
+                <td>@doc.NomeFile</td>
+                <td>@doc.Descrizione</td>
+                <td>@doc.RagioneSocialeFornitore</td>
+                <td>@String.Format("{0:dd/MM/yyyy}", doc.DataCreazione)</td>
+            </tr>
+        }
+        @if (Model.Documenti.Count() == 0)
+        {
+            <tr>
+                <td colspan="5">
+                    Nessun documento attualmente presente
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<nav aria-label="Page navigation example" style="text-align:center">
+    <ul class="pagination">
+        <li class="page-item">
+            @Ajax.ActionLink("Prima", "List", new { PaginaCorrente = 1 }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "table_container", OnBegin="Loading_OnBegin", OnComplete="Loading_OnComplete" }, new { @class = "page-link" })
+        </li>
+        @foreach (var page in Model.PagineDaVisualizzare)
+        {
+            <li class="page-item
+                @if(page == Model.PaginaCorrente)
+                {
+                    <text>active</text>
+                }
+                ">
+                @Ajax.ActionLink(page.ToString(), "List", new { PaginaCorrente = page }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "table_container", OnBegin = "Loading_OnBegin", OnComplete = "Loading_OnComplete" }, new { @class = "page-link" })
+            </li>
+        }
+        <li class="page-item">
+            @Ajax.ActionLink("Ultima", "List", new { PaginaCorrente = Model.NumeroPagine }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "table_container", OnBegin = "Loading_OnBegin", OnComplete = "Loading_OnComplete" }, new { @class = "page-link" })
+        </li>
+    </ul>
+</nav>
+
+<div id="loading_overlay" style="display:none;position:absolute;top:0px;height:100%;width:100%;background-color:#CDCDCD55;z-index:1000;">
+    <div id="loading_overlay_content" style="position:absolute;width:250px;right: calc(50% - 125px);top:calc(50% - 22px);z-index:10000;opacity:1;">
+        <i class="fa fa-refresh fa-spin" style="font-size:32px"></i>
+        <i style="font-size:32px;margin-left:20px">Caricamento ...</i>
+    </div>
+</div>

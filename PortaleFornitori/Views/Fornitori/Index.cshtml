@@ -1,0 +1,26 @@
+﻿@model PortaleFornitori.ViewModels.Fornitori.FornitoriIndexViewModel
+
+
+<div id="table_container" style="position:relative;">
+    @Html.Partial("_List", Model)
+</div>
+
+
+
+
+@section scripts {
+   <script type="text/javascript">
+       function Loading_OnBegin() {
+           $("#loading_overlay").show();
+       }
+       function Loading_OnComplete() {
+           $("#loading_overlay").hide();
+       }
+       function EditFornitore_OnSuccess(data) {
+           $("#" + data.TargetId).html(data.Html);
+           if (data.CloseDialog) {
+               $("#mioModale").modal("hide");
+           }
+       }
+    </script>
+    }

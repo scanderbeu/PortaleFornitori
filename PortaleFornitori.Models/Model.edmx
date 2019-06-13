@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PortaleFornitoriModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Documenti">
+          <Key>
+            <PropertyRef Name="IdDocumento" />
+          </Key>
+          <Property Name="IdDocumento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descrizione" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DataCreazione" Type="datetime" Nullable="false" />
+          <Property Name="NomeFile" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Contenuto" Type="varbinary(max)" Nullable="false" />
+          <Property Name="IdFornitore" Type="int" Nullable="false" />
+          <Property Name="ContentType" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fornitori">
+          <Key>
+            <PropertyRef Name="IdFornitore" />
+          </Key>
+          <Property Name="IdFornitore" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RagioneSociale" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Indirizzo" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Citta" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Funzioni">
+          <Key>
+            <PropertyRef Name="IdFunzione" />
+          </Key>
+          <Property Name="IdFunzione" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Icona" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descrizione" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Url" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Abilitato" Type="bit" Nullable="false" />
+          <Property Name="IdFunzionePadre" Type="int" />
+        </EntityType>
+        <EntityType Name="Ruoli">
+          <Key>
+            <PropertyRef Name="IdRuolo" />
+          </Key>
+          <Property Name="IdRuolo" Type="int" Nullable="false" />
+          <Property Name="DescrizioneRuolo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utenti">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cognome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdFornitore" Type="int" />
+          <Property Name="IdRuolo" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Documenti_Fornitori">
+          <End Role="Fornitori" Type="Self.Fornitori" Multiplicity="1" />
+          <End Role="Documenti" Type="Self.Documenti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornitori">
+              <PropertyRef Name="IdFornitore" />
+            </Principal>
+            <Dependent Role="Documenti">
+              <PropertyRef Name="IdFornitore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Funzioni_Funzioni">
+          <End Role="Funzioni" Type="Self.Funzioni" Multiplicity="0..1" />
+          <End Role="Funzioni1" Type="Self.Funzioni" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Funzioni">
+              <PropertyRef Name="IdFunzione" />
+            </Principal>
+            <Dependent Role="Funzioni1">
+              <PropertyRef Name="IdFunzionePadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Utenti_Fornitori">
+          <End Role="Fornitori" Type="Self.Fornitori" Multiplicity="0..1" />
+          <End Role="Utenti" Type="Self.Utenti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornitori">
+              <PropertyRef Name="IdFornitore" />
+            </Principal>
+            <Dependent Role="Utenti">
+              <PropertyRef Name="IdFornitore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Utenti_Ruoli">
+          <End Role="Ruoli" Type="Self.Ruoli" Multiplicity="1" />
+          <End Role="Utenti" Type="Self.Utenti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ruoli">
+              <PropertyRef Name="IdRuolo" />
+            </Principal>
+            <Dependent Role="Utenti">
+              <PropertyRef Name="IdRuolo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PortaleFornitoriModelStoreContainer">
+          <EntitySet Name="Documenti" EntityType="Self.Documenti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fornitori" EntityType="Self.Fornitori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Funzioni" EntityType="Self.Funzioni" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ruoli" EntityType="Self.Ruoli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utenti" EntityType="Self.Utenti" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Documenti_Fornitori" Association="Self.FK_Documenti_Fornitori">
+            <End Role="Fornitori" EntitySet="Fornitori" />
+            <End Role="Documenti" EntitySet="Documenti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Funzioni_Funzioni" Association="Self.FK_Funzioni_Funzioni">
+            <End Role="Funzioni" EntitySet="Funzioni" />
+            <End Role="Funzioni1" EntitySet="Funzioni" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Utenti_Fornitori" Association="Self.FK_Utenti_Fornitori">
+            <End Role="Fornitori" EntitySet="Fornitori" />
+            <End Role="Utenti" EntitySet="Utenti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Utenti_Ruoli" Association="Self.FK_Utenti_Ruoli">
+            <End Role="Ruoli" EntitySet="Ruoli" />
+            <End Role="Utenti" EntitySet="Utenti" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PortaleFornitoriModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Documento">
+          <Key>
+            <PropertyRef Name="IdDocumento" />
+          </Key>
+          <Property Name="IdDocumento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descrizione" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataCreazione" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NomeFile" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contenuto" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="IdFornitore" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Fornitori" Relationship="Self.FK_Documenti_Fornitori" FromRole="Documenti" ToRole="Fornitori" />
+          <Property Name="ContentType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Fornitore">
+          <Key>
+            <PropertyRef Name="IdFornitore" />
+          </Key>
+          <Property Name="IdFornitore" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RagioneSociale" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Indirizzo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Citta" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Documenti" Relationship="Self.FK_Documenti_Fornitori" FromRole="Fornitori" ToRole="Documenti" />
+          <NavigationProperty Name="Utenti" Relationship="PortaleFornitoriModel.FK_Utenti_Fornitori" FromRole="Fornitore" ToRole="Utenti" />
+        </EntityType>
+        <Association Name="FK_Documenti_Fornitori">
+          <End Role="Fornitori" Type="PortaleFornitoriModel.Fornitore" Multiplicity="1" />
+          <End Role="Documenti" Type="PortaleFornitoriModel.Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornitori">
+              <PropertyRef Name="IdFornitore" />
+            </Principal>
+            <Dependent Role="Documenti">
+              <PropertyRef Name="IdFornitore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PortaleFornitoriDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Documenti" EntityType="PortaleFornitoriModel.Documento" />
+          <EntitySet Name="Fornitori" EntityType="PortaleFornitoriModel.Fornitore" />
+          <AssociationSet Name="FK_Documenti_Fornitori" Association="Self.FK_Documenti_Fornitori">
+            <End Role="Fornitori" EntitySet="Fornitori" />
+            <End Role="Documenti" EntitySet="Documenti" />
+          </AssociationSet>
+          <EntitySet Name="Ruoli" EntityType="PortaleFornitoriModel.Ruolo" />
+          <EntitySet Name="Utenti" EntityType="PortaleFornitoriModel.Utente" />
+          <AssociationSet Name="FK_Utenti_Fornitori" Association="PortaleFornitoriModel.FK_Utenti_Fornitori">
+            <End Role="Fornitore" EntitySet="Fornitori" />
+            <End Role="Utenti" EntitySet="Utenti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Utenti_Ruoli" Association="PortaleFornitoriModel.FK_Utenti_Ruoli">
+            <End Role="Ruoli" EntitySet="Ruoli" />
+            <End Role="Utenti" EntitySet="Utenti" />
+          </AssociationSet>
+          <EntitySet Name="Funzioni" EntityType="PortaleFornitoriModel.Funzione" />
+          <AssociationSet Name="FK_Funzioni_Funzioni" Association="PortaleFornitoriModel.FK_Funzioni_Funzioni">
+            <End Role="Funzioni" EntitySet="Funzioni" />
+            <End Role="Funzioni1" EntitySet="Funzioni" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Ruolo">
+          <Key>
+            <PropertyRef Name="IdRuolo" />
+          </Key>
+          <Property Name="IdRuolo" Type="Int32" Nullable="false" />
+          <Property Name="DescrizioneRuolo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Utenti" Relationship="PortaleFornitoriModel.FK_Utenti_Ruoli" FromRole="Ruoli" ToRole="Utenti" />
+        </EntityType>
+        <EntityType Name="Utente">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cognome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdFornitore" Type="Int32" />
+          <Property Name="IdRuolo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Fornitore" Relationship="PortaleFornitoriModel.FK_Utenti_Fornitori" FromRole="Utenti" ToRole="Fornitore" />
+          <NavigationProperty Name="Ruolo" Relationship="PortaleFornitoriModel.FK_Utenti_Ruoli" FromRole="Utenti" ToRole="Ruoli" />
+        </EntityType>
+        <Association Name="FK_Utenti_Fornitori">
+          <End Type="PortaleFornitoriModel.Fornitore" Role="Fornitore" Multiplicity="0..1" />
+          <End Type="PortaleFornitoriModel.Utente" Role="Utenti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornitore">
+              <PropertyRef Name="IdFornitore" />
+            </Principal>
+            <Dependent Role="Utenti">
+              <PropertyRef Name="IdFornitore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Utenti_Ruoli">
+          <End Type="PortaleFornitoriModel.Ruolo" Role="Ruoli" Multiplicity="1" />
+          <End Type="PortaleFornitoriModel.Utente" Role="Utenti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ruoli">
+              <PropertyRef Name="IdRuolo" />
+            </Principal>
+            <Dependent Role="Utenti">
+              <PropertyRef Name="IdRuolo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Funzione">
+          <Key>
+            <PropertyRef Name="IdFunzione" />
+          </Key>
+          <Property Name="IdFunzione" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Icona" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descrizione" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Abilitato" Type="Boolean" Nullable="false" />
+          <Property Name="IdFunzionePadre" Type="Int32" />
+          <NavigationProperty Name="Figli" Relationship="PortaleFornitoriModel.FK_Funzioni_Funzioni" FromRole="Funzioni" ToRole="Funzioni1" />
+          <NavigationProperty Name="Padre" Relationship="PortaleFornitoriModel.FK_Funzioni_Funzioni" FromRole="Funzioni1" ToRole="Funzioni" />
+        </EntityType>
+        <Association Name="FK_Funzioni_Funzioni">
+          <End Type="PortaleFornitoriModel.Funzione" Role="Funzioni" Multiplicity="0..1" />
+          <End Type="PortaleFornitoriModel.Funzione" Role="Funzioni1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Funzioni">
+              <PropertyRef Name="IdFunzione" />
+            </Principal>
+            <Dependent Role="Funzioni1">
+              <PropertyRef Name="IdFunzionePadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PortaleFornitoriModelStoreContainer" CdmEntityContainer="PortaleFornitoriDbContext">
+          <EntitySetMapping Name="Documenti">
+            <EntityTypeMapping TypeName="PortaleFornitoriModel.Documento">
+              <MappingFragment StoreEntitySet="Documenti">
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="IdDocumento" ColumnName="IdDocumento" />
+                <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+                <ScalarProperty Name="DataCreazione" ColumnName="DataCreazione" />
+                <ScalarProperty Name="NomeFile" ColumnName="NomeFile" />
+                <ScalarProperty Name="Contenuto" ColumnName="Contenuto" />
+                <ScalarProperty Name="IdFornitore" ColumnName="IdFornitore" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fornitori">
+            <EntityTypeMapping TypeName="PortaleFornitoriModel.Fornitore">
+              <MappingFragment StoreEntitySet="Fornitori">
+                <ScalarProperty Name="IdFornitore" ColumnName="IdFornitore" />
+                <ScalarProperty Name="RagioneSociale" ColumnName="RagioneSociale" />
+                <ScalarProperty Name="Indirizzo" ColumnName="Indirizzo" />
+                <ScalarProperty Name="Citta" ColumnName="Citta" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ruoli">
+            <EntityTypeMapping TypeName="PortaleFornitoriModel.Ruolo">
+              <MappingFragment StoreEntitySet="Ruoli">
+                <ScalarProperty Name="DescrizioneRuolo" ColumnName="DescrizioneRuolo" />
+                <ScalarProperty Name="IdRuolo" ColumnName="IdRuolo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utenti">
+            <EntityTypeMapping TypeName="PortaleFornitoriModel.Utente">
+              <MappingFragment StoreEntitySet="Utenti">
+                <ScalarProperty Name="IdRuolo" ColumnName="IdRuolo" />
+                <ScalarProperty Name="IdFornitore" ColumnName="IdFornitore" />
+                <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Funzioni">
+            <EntityTypeMapping TypeName="PortaleFornitoriModel.Funzione">
+              <MappingFragment StoreEntitySet="Funzioni">
+                <ScalarProperty Name="IdFunzionePadre" ColumnName="IdFunzionePadre" />
+                <ScalarProperty Name="Abilitato" ColumnName="Abilitato" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+                <ScalarProperty Name="Icona" ColumnName="Icona" />
+                <ScalarProperty Name="IdFunzione" ColumnName="IdFunzione" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

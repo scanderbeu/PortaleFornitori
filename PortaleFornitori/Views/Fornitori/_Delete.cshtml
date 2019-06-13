@@ -1,0 +1,24 @@
+﻿@model PortaleFornitori.ViewModels.Fornitori.FornitoriDeleteViewModel
+
+@using (Ajax.BeginForm("Delete", "Fornitori", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "EditFornitore_OnSuccess" }))
+{
+    <div class="modal-header">
+        <h3 class="modal-title">Eliminazione Fornitore</h3>
+    </div>
+    <div class="modal-body">
+        @Html.ValidationSummary(false, "Attenzione")
+        @Html.HiddenFor(m => m.Fornitore.IdFornitore)
+        <p>Sei sicuro di voler eliminare il fornitore @Model.Fornitore.RagioneSociale ?</p>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="pull-left">
+                <span class="btn btn-default"
+                      data-dismiss="modal">Annulla</span>
+            </div>
+            <div class="pull-right">
+                <button class="btn btn-primary">Elimina</button>
+            </div>
+        </div>
+    </div>
+}

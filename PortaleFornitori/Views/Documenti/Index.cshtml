@@ -1,0 +1,20 @@
+﻿@model PortaleFornitori.ViewModels.Documenti.DocumentiIndexViewModel
+
+
+<div id="table_container" style="position:relative;">
+    @Html.Partial("_List", Model)
+</div>
+
+
+
+
+@section scripts {
+   <script type="text/javascript">
+       function Loading_OnBegin() {
+           $("#loading_overlay").show();
+       }
+       function Loading_OnComplete() {
+           $("#loading_overlay").hide();
+       }
+    </script>
+    }

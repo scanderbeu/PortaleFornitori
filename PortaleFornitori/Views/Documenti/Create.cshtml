@@ -1,0 +1,38 @@
+﻿@model PortaleFornitori.ViewModels.Documenti.DocumentiCreateViewModel
+
+<h2>Caricamento Documenti</h2>
+
+@using (Html.BeginForm("Create", "Documenti", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(false,"Attenzione")
+    <div class="form-group">
+        <label class="col-sm-2">File</label>
+        <div class="col-sm-10">
+            <input type="file" name="file" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2">Descrizione</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Documento.Descrizione, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Documento.Descrizione, "*")
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2">Fornitore</label>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.Documento.IdFornitore, new SelectList(Model.Fornitori, "IdFornitore", "RagioneSociale"), "Seleziona il fornitore", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Documento.IdFornitore, "*")
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="pull-left">
+        <a href="@Url.Action("Index")">
+            <span class="btn btn-default">Indietro</span>
+        </a>
+        </div>
+            <div class="pull-right">
+                <button class="btn btn-primary">Salva</button>
+            </div>
+        </div>
+        }

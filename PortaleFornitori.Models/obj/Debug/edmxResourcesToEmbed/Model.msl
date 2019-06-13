@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PortaleFornitoriModelStoreContainer" CdmEntityContainer="PortaleFornitoriDbContext">
+    <EntitySetMapping Name="Documenti">
+      <EntityTypeMapping TypeName="PortaleFornitoriModel.Documento">
+        <MappingFragment StoreEntitySet="Documenti">
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+          <ScalarProperty Name="IdDocumento" ColumnName="IdDocumento" />
+          <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+          <ScalarProperty Name="DataCreazione" ColumnName="DataCreazione" />
+          <ScalarProperty Name="NomeFile" ColumnName="NomeFile" />
+          <ScalarProperty Name="Contenuto" ColumnName="Contenuto" />
+          <ScalarProperty Name="IdFornitore" ColumnName="IdFornitore" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fornitori">
+      <EntityTypeMapping TypeName="PortaleFornitoriModel.Fornitore">
+        <MappingFragment StoreEntitySet="Fornitori">
+          <ScalarProperty Name="IdFornitore" ColumnName="IdFornitore" />
+          <ScalarProperty Name="RagioneSociale" ColumnName="RagioneSociale" />
+          <ScalarProperty Name="Indirizzo" ColumnName="Indirizzo" />
+          <ScalarProperty Name="Citta" ColumnName="Citta" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ruoli">
+      <EntityTypeMapping TypeName="PortaleFornitoriModel.Ruolo">
+        <MappingFragment StoreEntitySet="Ruoli">
+          <ScalarProperty Name="DescrizioneRuolo" ColumnName="DescrizioneRuolo" />
+          <ScalarProperty Name="IdRuolo" ColumnName="IdRuolo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utenti">
+      <EntityTypeMapping TypeName="PortaleFornitoriModel.Utente">
+        <MappingFragment StoreEntitySet="Utenti">
+          <ScalarProperty Name="IdRuolo" ColumnName="IdRuolo" />
+          <ScalarProperty Name="IdFornitore" ColumnName="IdFornitore" />
+          <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Funzioni">
+      <EntityTypeMapping TypeName="PortaleFornitoriModel.Funzione">
+        <MappingFragment StoreEntitySet="Funzioni">
+          <ScalarProperty Name="IdFunzionePadre" ColumnName="IdFunzionePadre" />
+          <ScalarProperty Name="Abilitato" ColumnName="Abilitato" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+          <ScalarProperty Name="Icona" ColumnName="Icona" />
+          <ScalarProperty Name="IdFunzione" ColumnName="IdFunzione" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

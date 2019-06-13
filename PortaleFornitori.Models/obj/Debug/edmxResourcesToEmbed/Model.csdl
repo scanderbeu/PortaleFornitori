@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PortaleFornitoriModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Documento">
+    <Key>
+      <PropertyRef Name="IdDocumento" />
+    </Key>
+    <Property Name="IdDocumento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descrizione" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DataCreazione" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="NomeFile" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Contenuto" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="IdFornitore" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Fornitori" Relationship="Self.FK_Documenti_Fornitori" FromRole="Documenti" ToRole="Fornitori" />
+    <Property Name="ContentType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Fornitore">
+    <Key>
+      <PropertyRef Name="IdFornitore" />
+    </Key>
+    <Property Name="IdFornitore" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RagioneSociale" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Indirizzo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Citta" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Telefono" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Documenti" Relationship="Self.FK_Documenti_Fornitori" FromRole="Fornitori" ToRole="Documenti" />
+    <NavigationProperty Name="Utenti" Relationship="PortaleFornitoriModel.FK_Utenti_Fornitori" FromRole="Fornitore" ToRole="Utenti" />
+  </EntityType>
+  <Association Name="FK_Documenti_Fornitori">
+    <End Role="Fornitori" Type="PortaleFornitoriModel.Fornitore" Multiplicity="1" />
+    <End Role="Documenti" Type="PortaleFornitoriModel.Documento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fornitori">
+        <PropertyRef Name="IdFornitore" />
+      </Principal>
+      <Dependent Role="Documenti">
+        <PropertyRef Name="IdFornitore" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PortaleFornitoriDbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Documenti" EntityType="PortaleFornitoriModel.Documento" />
+    <EntitySet Name="Fornitori" EntityType="PortaleFornitoriModel.Fornitore" />
+    <AssociationSet Name="FK_Documenti_Fornitori" Association="Self.FK_Documenti_Fornitori">
+      <End Role="Fornitori" EntitySet="Fornitori" />
+      <End Role="Documenti" EntitySet="Documenti" />
+    </AssociationSet>
+    <EntitySet Name="Ruoli" EntityType="PortaleFornitoriModel.Ruolo" />
+    <EntitySet Name="Utenti" EntityType="PortaleFornitoriModel.Utente" />
+    <AssociationSet Name="FK_Utenti_Fornitori" Association="PortaleFornitoriModel.FK_Utenti_Fornitori">
+      <End Role="Fornitore" EntitySet="Fornitori" />
+      <End Role="Utenti" EntitySet="Utenti" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Utenti_Ruoli" Association="PortaleFornitoriModel.FK_Utenti_Ruoli">
+      <End Role="Ruoli" EntitySet="Ruoli" />
+      <End Role="Utenti" EntitySet="Utenti" />
+    </AssociationSet>
+    <EntitySet Name="Funzioni" EntityType="PortaleFornitoriModel.Funzione" />
+    <AssociationSet Name="FK_Funzioni_Funzioni" Association="PortaleFornitoriModel.FK_Funzioni_Funzioni">
+      <End Role="Funzioni" EntitySet="Funzioni" />
+      <End Role="Funzioni1" EntitySet="Funzioni" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Ruolo">
+    <Key>
+      <PropertyRef Name="IdRuolo" />
+    </Key>
+    <Property Name="IdRuolo" Type="Int32" Nullable="false" />
+    <Property Name="DescrizioneRuolo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Utenti" Relationship="PortaleFornitoriModel.FK_Utenti_Ruoli" FromRole="Ruoli" ToRole="Utenti" />
+  </EntityType>
+  <EntityType Name="Utente">
+    <Key>
+      <PropertyRef Name="IdUser" />
+    </Key>
+    <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Cognome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IdFornitore" Type="Int32" />
+    <Property Name="IdRuolo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Fornitore" Relationship="PortaleFornitoriModel.FK_Utenti_Fornitori" FromRole="Utenti" ToRole="Fornitore" />
+    <NavigationProperty Name="Ruolo" Relationship="PortaleFornitoriModel.FK_Utenti_Ruoli" FromRole="Utenti" ToRole="Ruoli" />
+  </EntityType>
+  <Association Name="FK_Utenti_Fornitori">
+    <End Type="PortaleFornitoriModel.Fornitore" Role="Fornitore" Multiplicity="0..1" />
+    <End Type="PortaleFornitoriModel.Utente" Role="Utenti" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fornitore">
+        <PropertyRef Name="IdFornitore" />
+      </Principal>
+      <Dependent Role="Utenti">
+        <PropertyRef Name="IdFornitore" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Utenti_Ruoli">
+    <End Type="PortaleFornitoriModel.Ruolo" Role="Ruoli" Multiplicity="1" />
+    <End Type="PortaleFornitoriModel.Utente" Role="Utenti" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ruoli">
+        <PropertyRef Name="IdRuolo" />
+      </Principal>
+      <Dependent Role="Utenti">
+        <PropertyRef Name="IdRuolo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Funzione">
+    <Key>
+      <PropertyRef Name="IdFunzione" />
+    </Key>
+    <Property Name="IdFunzione" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Icona" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Descrizione" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Url" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="Abilitato" Type="Boolean" Nullable="false" />
+    <Property Name="IdFunzionePadre" Type="Int32" />
+    <NavigationProperty Name="Figli" Relationship="PortaleFornitoriModel.FK_Funzioni_Funzioni" FromRole="Funzioni" ToRole="Funzioni1" />
+    <NavigationProperty Name="Padre" Relationship="PortaleFornitoriModel.FK_Funzioni_Funzioni" FromRole="Funzioni1" ToRole="Funzioni" />
+  </EntityType>
+  <Association Name="FK_Funzioni_Funzioni">
+    <End Type="PortaleFornitoriModel.Funzione" Role="Funzioni" Multiplicity="0..1" />
+    <End Type="PortaleFornitoriModel.Funzione" Role="Funzioni1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Funzioni">
+        <PropertyRef Name="IdFunzione" />
+      </Principal>
+      <Dependent Role="Funzioni1">
+        <PropertyRef Name="IdFunzionePadre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

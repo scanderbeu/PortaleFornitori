@@ -1,0 +1,57 @@
+﻿@model PortaleFornitori.ViewModels.Account.LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Portale Fornitori Unicam | Log in</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.2 -->
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css">
+    <!-- Font Awesome Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Theme style -->
+    <link href="~/admin-lte/css/AdminLTE.css" rel="stylesheet" type="text/css">
+</head>
+<body class="login-page">
+    @using (Html.BeginForm("Login","Account", FormMethod.Post))
+    {
+        <div class="login-box">
+            <div class="login-logo">
+                <a href="/"><b>Portale</b> Fornitore</a>
+            </div><!-- /.login-logo -->
+            <div class="login-box-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+                <form action="#" method="post">
+                    <div class="form-group has-feedback">
+                        @Html.TextBoxFor(m=>m.Username, new { @class="form-control" })
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.CheckBoxFor(m => m.RememberMe) Ricordami 
+                        @Html.HiddenFor(m=>m.ReturnUrl)
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+                        </div><!-- /.col -->
+                    </div>
+                    <div class="row">
+                        @Html.ValidationSummary(false,"Attenzione")
+                    </div>
+                </form>
+            </div><!-- /.login-box-body -->
+        </div><!-- /.login-box -->
+        <script src="~/Scripts/jquery-3.1.1.js" ></script>
+
+        <script src="~/Scripts/bootstrap.js"></script>
+    }
+</body>
+</html>
