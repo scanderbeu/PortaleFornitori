@@ -100,7 +100,7 @@
             <div id="mioModale" class="modal fade in ajaxmodal">
                 <div class="modal-dialog modal-lg">
                     <div id="modalContent" class="modal-content" style="border-radius: 5px;">
-                        
+
                     </div>
                 </div>
             </div>
@@ -125,10 +125,15 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('body').on('hidden.bs.modal', '.ajaxmodal', function () {
-                
+
                 $(".modal-content", $(this)).html("Caricamento");
                 $(this).removeData('bs.modal');
             });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
         });
     </script>
     @RenderSection("scripts", required: false)

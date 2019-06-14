@@ -26,11 +26,21 @@
                         <span class="btn btn-primary">Modifica</span>
 
                     </a>
-                    <a href="@Url.Action("Delete",new { id=forn.IdFornitore })"
-                       data-toggle="modal"
-                       data-target="#mioModale">
-                        <span class="btn btn-danger">Elimina</span>
+                    @if (forn.Documenti.Count() == 0)
+                    {
+                        <a href="@Url.Action("Delete",new { id=forn.IdFornitore })"
+                           data-toggle="modal"
+                           data-target="#mioModale">
+                            <span class="btn btn-danger">Elimina</span>
                         </a>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-secondary" title="Attenzione" data-container="body" data-toggle="popover"
+                                data-placement="top" data-content="Il fornitore presenta documenti associati!">
+                            Elimina
+                        </button>
+                    }
                 </td>
                 <td>@forn.RagioneSociale</td>
                 <td>@forn.Indirizzo</td>
@@ -78,3 +88,9 @@
         <i style="font-size:32px;margin-left:20px">Caricamento ...</i>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
