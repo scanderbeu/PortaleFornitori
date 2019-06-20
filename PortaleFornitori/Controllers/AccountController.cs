@@ -13,8 +13,8 @@ namespace PortaleFornitori.Controllers
 {
     public class AccountController : BaseController
     {
-      
-      
+
+
         [HttpGet]
         public ActionResult Login(string returnUrl)
         {
@@ -35,7 +35,6 @@ namespace PortaleFornitori.Controllers
                 {
                     if (utente.Password == vm.Password)
                     {
-                        FormsAuthentication.SetAuthCookie(vm.Username, vm.RememberMe);
 
                         //utente.Ruolo.Utenti = null;
                         FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, //version 
@@ -50,10 +49,12 @@ namespace PortaleFornitori.Controllers
                             })
                             )
                             ;
-                            
+
                         string encTicket = FormsAuthentication.Encrypt(authTicket);
 
-                        Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+                        var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+                        cookie.Expires = authTicket.Expiration;
+                        Response.Cookies.Add(cookie);
 
                         if (String.IsNullOrEmpty(vm.ReturnUrl))
                         {
