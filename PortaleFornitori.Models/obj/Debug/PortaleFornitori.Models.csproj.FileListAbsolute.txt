@@ -40,3 +40,17 @@ C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\obj\De
 C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.csproj.CopyComplete
 C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.dll
 C:\Users\tecno\Documents\GitHub\PortaleFornitori7\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.pdb
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\bin\Debug\PortaleFornitori.Models.dll.config
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\bin\Debug\PortaleFornitori.Models.dll
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\bin\Debug\PortaleFornitori.Models.pdb
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\bin\Debug\EntityFramework.dll
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\bin\Debug\EntityFramework.xml
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\bin\Debug\it\EntityFramework.resources.dll
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\bin\Debug\it\EntityFramework.SqlServer.resources.dll
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.csprojAssemblyReference.cache
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.csproj.CoreCompileInputs.cache
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.csproj.CopyComplete
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.dll
+C:\Users\Davide Belfiori\Desktop\Git\Cloned Repositories\PortaleFornitori\PortaleFornitori.Models\obj\Debug\PortaleFornitori.Models.pdb
