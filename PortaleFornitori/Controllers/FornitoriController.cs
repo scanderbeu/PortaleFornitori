@@ -26,16 +26,18 @@ namespace PortaleFornitori.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, bool ultimoFornitore, int paginaCorrente = 1)
         {
             FornitoriDeleteViewModel vm = new FornitoriDeleteViewModel();
             vm.Fornitore = Context.Fornitori.Where(w => w.IdFornitore == id).FirstOrDefault();
+            vm.PaginaCorrente = paginaCorrente;
+            vm.UltimoFornitore = ultimoFornitore;
 
             return PartialView("_Delete", vm);
         }
 
         [HttpPost]
-        public ActionResult Delete([Bind(Prefix="Fornitore")]Fornitore fornitore)
+        public ActionResult Delete([Bind(Prefix="Fornitore")]Fornitore fornitore, bool ultimoFornitore, int paginaCorrente = 1)
         {
             bool success = false;
             try
@@ -59,7 +61,7 @@ namespace PortaleFornitori.Controllers
             }
             if (success)
             {
-                FornitoriIndexViewModel vm = FornitoriIndexViewModel.Load(Context, 1, PageSize);
+                FornitoriIndexViewModel vm = FornitoriIndexViewModel.Load(Context, ultimoFornitore && paginaCorrente > 1 ? paginaCorrente - 1 : paginaCorrente, PageSize);
                 return Json(new { CloseDialog = true,
                         Html = RenderRazorViewToString("_List",vm),
                         TargetId = "table_container",
@@ -81,17 +83,18 @@ namespace PortaleFornitori.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, int paginaCorrente = 1)
         {
             FornitoriEditViewModel vm = new FornitoriEditViewModel();
             vm.Fornitore = Context.Fornitori.Where(w => w.IdFornitore == id)
                 .FirstOrDefault() ?? new Models.Fornitore();
+            vm.PaginaCorrente = paginaCorrente;
             
             return PartialView("_Edit", vm);
         }
 
         [HttpPost]
-        public ActionResult Edit([Bind(Prefix="Fornitore")]Fornitore fornitore)
+        public ActionResult Edit([Bind(Prefix="Fornitore")]Fornitore fornitore, int paginaCorrente = 1)
         {
             bool success = false;
             if (String.IsNullOrEmpty(fornitore.RagioneSociale))
@@ -135,7 +138,7 @@ namespace PortaleFornitori.Controllers
             if (success)
             {
                 //Se ho successo, bisogna che aggiorno la tabella dei fornitori
-                FornitoriIndexViewModel vm = FornitoriIndexViewModel.Load(Context, 1, PageSize);
+                FornitoriIndexViewModel vm = FornitoriIndexViewModel.Load(Context, paginaCorrente, PageSize);
                 return Json(new
                 {
                     Success = true,

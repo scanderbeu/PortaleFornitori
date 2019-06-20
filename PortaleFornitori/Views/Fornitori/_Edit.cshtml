@@ -8,6 +8,7 @@
 <div class="modal-body">
     @Html.ValidationSummary(false,"Attenzione")
     @Html.HiddenFor(m=>m.Fornitore.IdFornitore)
+    @Html.HiddenFor(m=>m.PaginaCorrente)
     <div class="form-group">
         <div class="col-sm-2">Ragione Sociale</div>
         <div class="col-sm-10">

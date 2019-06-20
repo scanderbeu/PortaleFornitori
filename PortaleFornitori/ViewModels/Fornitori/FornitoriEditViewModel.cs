@@ -9,5 +9,6 @@ namespace PortaleFornitori.ViewModels.Fornitori
     public class FornitoriEditViewModel
     {
         public Fornitore Fornitore { get; internal set; }
+        public int PaginaCorrente { get; internal set; }
     }
 }

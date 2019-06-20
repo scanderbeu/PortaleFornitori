@@ -20,7 +20,7 @@
         {
             <tr>
                 <td>
-                    <a href="@Url.Action("Edit",new { id=forn.IdFornitore })"
+                    <a href="@Url.Action("Edit",new { id=forn.IdFornitore, paginaCorrente = Model.PaginaCorrente })"
                        data-toggle="modal"
                        data-target="#mioModale">
                         <span class="btn btn-primary">Modifica</span>
@@ -28,7 +28,7 @@
                     </a>
                     @if (forn.Documenti.Count() == 0)
                     {
-                        <a href="@Url.Action("Delete",new { id=forn.IdFornitore })"
+                        <a href="@Url.Action("Delete",new { id=forn.IdFornitore, paginaCorrente = Model.PaginaCorrente, ultimoFornitore = (Model.Fornitori.Count() == 1) })"
                            data-toggle="modal"
                            data-target="#mioModale">
                             <span class="btn btn-danger">Elimina</span>

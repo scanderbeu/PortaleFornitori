@@ -8,6 +8,9 @@
     <div class="modal-body">
         @Html.ValidationSummary(false, "Attenzione")
         @Html.HiddenFor(m => m.Fornitore.IdFornitore)
+        @Html.HiddenFor(m=>m.UltimoFornitore)
+        @Html.HiddenFor(m=>m.PaginaCorrente)
+
         <p>Sei sicuro di voler eliminare il fornitore @Model.Fornitore.RagioneSociale ?</p>
     </div>
     <div class="modal-footer">
