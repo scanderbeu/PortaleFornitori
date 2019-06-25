@@ -13,14 +13,15 @@ namespace PortaleFornitori.ViewModels.Documenti
 
         }
 
-        public static DocumentiIndexViewModel Load(PortaleFornitoriDbContext ctx, int paginaCorrente, int pageSize)
+        public static DocumentiIndexViewModel Load(PortaleFornitoriDbContext ctx, int paginaCorrente, int pageSize, 
+            Func<Documento,bool> filter, bool bloccaEdit)
         {
             DocumentiIndexViewModel vm = new DocumentiIndexViewModel();
             vm.PaginaCorrente = paginaCorrente;
             var numeroDiDocumenti = ctx.Documenti.Count();
             vm.NumeroPagine = (int)Math.Ceiling(numeroDiDocumenti / (decimal)pageSize);
             vm.Documenti = ctx.Documenti
-                .Where(o => o.Attivo)
+                .Where(filter)
                 .OrderBy(o => o.IdDocumento)
                 .Skip((vm.PaginaCorrente - 1) * pageSize)
                 .Take(pageSize)
@@ -33,6 +34,28 @@ namespace PortaleFornitori.ViewModels.Documenti
                     RagioneSocialeFornitore = s.Fornitori.RagioneSociale
                 }).ToList();
             vm.Fornitori = ctx.Fornitori.OrderBy(o => o.RagioneSociale).ToList();
+
+            ImpostaPagineDaVisualizzare(vm);
+
+            vm.BloccaEdit = bloccaEdit;
+
+            return vm;
+        }
+
+        
+        public int CodiceFornitore { get; set; }
+        public String NomeFile { get; set; }
+
+        public List<DocumentoDto> Documenti { get; set; }
+
+        public List<Fornitore> Fornitori { get; set; }
+
+        public int PaginaCorrente { get; set; }
+        public int NumeroPagine { get; set; }
+        public List<int> PagineDaVisualizzare { get; internal set; }
+        public bool BloccaEdit { get; private set; }
+
+        private static void ImpostaPagineDaVisualizzare(DocumentiIndexViewModel vm) {
             vm.PagineDaVisualizzare = new List<int>();
 
             if (vm.PaginaCorrente == 1)
@@ -62,20 +85,6 @@ namespace PortaleFornitori.ViewModels.Documenti
                 vm.PagineDaVisualizzare.Add(vm.PaginaCorrente);
                 vm.PagineDaVisualizzare.Add(vm.PaginaCorrente + 1);
             }
-
-
-            return vm;
         }
-
-        public int CodiceFornitore { get; set; }
-        public String NomeFile { get; set; }
-
-        public List<DocumentoDto> Documenti { get; set; }
-
-        public List<Fornitore> Fornitori { get; set; }
-
-        public int PaginaCorrente { get; set; }
-        public int NumeroPagine { get; set; }
-        public List<int> PagineDaVisualizzare { get; internal set; }
     }
 }

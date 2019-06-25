@@ -8,25 +8,45 @@ using System.Web.Mvc;
 
 namespace PortaleFornitori.Controllers
 {
-    
+
     public class DocumentiController : BaseController
     {
-        
-        [Authorize(Roles = "Admin")]
+
+        [Authorize]
         public ActionResult Index(int? paginaCorrente)
         {
-            DocumentiIndexViewModel vm = DocumentiIndexViewModel
-                .Load(Context, paginaCorrente.HasValue ? paginaCorrente.Value : 1
-                , PageSize);
+            DocumentiIndexViewModel vm;
+
+            MyUserIdentity currentIdentity = HttpContext.User.Identity as MyUserIdentity;
+            if (currentIdentity.CurrentUser.Ruolo.DescrizioneRuolo == "Fornitore")
+            {
+                vm = DocumentiIndexViewModel.Load(Context, paginaCorrente.HasValue ? paginaCorrente.Value : 1, 
+                    PageSize, (Documento doc) => doc.Attivo && doc.IdFornitore == currentIdentity.CurrentUser.IdFornitore.Value, true);
+            }
+            else
+            {
+                vm = DocumentiIndexViewModel.Load(Context, paginaCorrente.HasValue ? paginaCorrente.Value : 1,
+                    PageSize, (Documento doc) => doc.Attivo, false);
+            }
             return View(vm);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public ActionResult List(int paginaCorrente)
         {
-            System.Threading.Thread.Sleep(5000);
-            DocumentiIndexViewModel vm = DocumentiIndexViewModel
-            .Load(Context, paginaCorrente, PageSize);
+            DocumentiIndexViewModel vm;
+
+            MyUserIdentity currentIdentity = HttpContext.User.Identity as MyUserIdentity;
+            if (currentIdentity.CurrentUser.Ruolo.DescrizioneRuolo == "Fornitore" )
+            {
+                vm = DocumentiIndexViewModel.Load(Context, paginaCorrente,
+                    PageSize, (Documento doc) => doc.Attivo && doc.IdFornitore == currentIdentity.CurrentUser.IdFornitore.Value, true);
+            }
+            else
+            {
+                vm = DocumentiIndexViewModel.Load(Context, paginaCorrente, PageSize, (Documento doc) => doc.Attivo, false);
+            }
+
             return PartialView("_List", vm);
         }
 
@@ -92,6 +112,7 @@ namespace PortaleFornitori.Controllers
         public ActionResult Download(int id)
         {
             var documento = Context.Documenti.Where(w => w.IdDocumento == id).FirstOrDefault();
+            MyUserIdentity currentIdentity = HttpContext.User.Identity as MyUserIdentity;
             //TODO : Verificare se l'utente attualmente loggato ha i privilegi per scaricare 
             //questo documento
             if (documento == null)
@@ -100,6 +121,13 @@ namespace PortaleFornitori.Controllers
                 return new HttpStatusCodeResult(500, "Documento non esistente");
             }
 
+            Context.Download.Add(new Download
+            {
+                IdDocumento = id,
+                IdFornitore = currentIdentity.CurrentUser.IdFornitore.Value,
+                DataDownload = DateTime.Now
+            });
+            Context.SaveChanges();
             return File(documento.Contenuto, documento.ContentType);//,documento.NomeFile);
         }
 

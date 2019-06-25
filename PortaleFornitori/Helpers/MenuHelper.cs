@@ -20,9 +20,10 @@ namespace PortaleFornitori.Helpers
             ul.AddCssClass("tree");
             ul.MergeAttribute("data-widget", "tree");
 
-            foreach(var funzione in funzioni)
-            {
-                AddLi(helper,ul, funzione);
+            MyUserIdentity currentIdentity = HttpContext.Current.User.Identity as MyUserIdentity;
+            int currentIdRuolo = currentIdentity.CurrentUser.IdRuolo;
+            foreach (var funzione in funzioni.Where(f => f.IdRuolo == currentIdRuolo || f.IdRuolo == null)) {
+                AddLi(helper, ul, funzione);
             }
 
             return new MvcHtmlString(ul.ToString());

@@ -3,9 +3,12 @@
     <thead>
         <tr>
             <th>
-                <a href="@Url.Action("Create", new { id=0 })">
-                    <span class="btn btn-success">Aggiungi</span>
-                </a>
+                @if (!Model.BloccaEdit)
+                {
+                    <a href="@Url.Action("Create", new { id = 0 })">
+                        <span class="btn btn-success">Aggiungi</span>
+                    </a>
+                }
             </th>
             <th>Nome File</th>
             <th>Descrizione</th>
@@ -21,9 +24,12 @@
                     <a target="_blank" href="@Url.Action("Download",new { id = doc.IdDocumento  })">
                         <span class="btn btn-primary">Download</span>
                     </a>
-                    <a href="@Url.Action("Delete",new { id = doc.IdDocumento })">
-                        <span class="btn btn-danger">Elimina</span>
-                    </a>
+                    @if (!Model.BloccaEdit)
+                    {
+                        <a href="@Url.Action("Delete", new { id = doc.IdDocumento })">
+                            <span class="btn btn-danger">Elimina</span>
+                        </a>
+                    }
                 </td>
                 <td>@doc.NomeFile</td>
                 <td>@doc.Descrizione</td>
