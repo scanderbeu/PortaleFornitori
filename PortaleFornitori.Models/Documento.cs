@@ -14,6 +14,12 @@ namespace PortaleFornitori.Models
     
     public partial class Documento
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Documento()
+        {
+            this.Download = new HashSet<Download>();
+        }
+    
         public int IdDocumento { get; set; }
         public string Descrizione { get; set; }
         public System.DateTime DataCreazione { get; set; }
@@ -24,5 +30,7 @@ namespace PortaleFornitori.Models
         public bool Attivo { get; set; }
     
         public virtual Fornitore Fornitori { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Download> Download { get; set; }
     }
 }

@@ -18,6 +18,15 @@
           <Property Name="ContentType" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Attivo" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Download">
+          <Key>
+            <PropertyRef Name="IdDownload" />
+          </Key>
+          <Property Name="IdFornitore" Type="int" Nullable="false" />
+          <Property Name="IdDocumento" Type="int" Nullable="false" />
+          <Property Name="DataDownload" Type="datetime" Nullable="false" />
+          <Property Name="IdDownload" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="Fornitori">
           <Key>
             <PropertyRef Name="IdFornitore" />
@@ -33,11 +42,12 @@
             <PropertyRef Name="IdFunzione" />
           </Key>
           <Property Name="IdFunzione" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Icona" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Icona" Type="varchar" MaxLength="50" />
           <Property Name="Descrizione" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Url" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="Abilitato" Type="bit" Nullable="false" />
           <Property Name="IdFunzionePadre" Type="int" />
+          <Property Name="IdRuolo" Type="int" />
         </EntityType>
         <EntityType Name="Ruoli">
           <Key>
@@ -80,6 +90,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Download_Documento">
+          <End Role="Documenti" Type="Self.Documenti" Multiplicity="1" />
+          <End Role="Download" Type="Self.Download" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documenti">
+              <PropertyRef Name="IdDocumento" />
+            </Principal>
+            <Dependent Role="Download">
+              <PropertyRef Name="IdDocumento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Download_Fornitore">
+          <End Role="Fornitori" Type="Self.Fornitori" Multiplicity="1" />
+          <End Role="Download" Type="Self.Download" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornitori">
+              <PropertyRef Name="IdFornitore" />
+            </Principal>
+            <Dependent Role="Download">
+              <PropertyRef Name="IdFornitore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Funzioni_Funzioni">
           <End Role="Funzioni" Type="Self.Funzioni" Multiplicity="0..1" />
           <End Role="Funzioni1" Type="Self.Funzioni" Multiplicity="*" />
@@ -89,6 +123,18 @@
             </Principal>
             <Dependent Role="Funzioni1">
               <PropertyRef Name="IdFunzionePadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Funzioni_Ruoli">
+          <End Role="Ruoli" Type="Self.Ruoli" Multiplicity="0..1" />
+          <End Role="Funzioni" Type="Self.Funzioni" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ruoli">
+              <PropertyRef Name="IdRuolo" />
+            </Principal>
+            <Dependent Role="Funzioni">
+              <PropertyRef Name="IdRuolo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -118,6 +164,7 @@
         </Association>
         <EntityContainer Name="PortaleFornitoriModelStoreContainer">
           <EntitySet Name="Documenti" EntityType="Self.Documenti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Download" EntityType="Self.Download" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fornitori" EntityType="Self.Fornitori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Funzioni" EntityType="Self.Funzioni" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ruoli" EntityType="Self.Ruoli" Schema="dbo" store:Type="Tables" />
@@ -127,9 +174,21 @@
             <End Role="Fornitori" EntitySet="Fornitori" />
             <End Role="Documenti" EntitySet="Documenti" />
           </AssociationSet>
+          <AssociationSet Name="FK_Download_Documento" Association="Self.FK_Download_Documento">
+            <End Role="Documenti" EntitySet="Documenti" />
+            <End Role="Download" EntitySet="Download" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Download_Fornitore" Association="Self.FK_Download_Fornitore">
+            <End Role="Fornitori" EntitySet="Fornitori" />
+            <End Role="Download" EntitySet="Download" />
+          </AssociationSet>
           <AssociationSet Name="FK_Funzioni_Funzioni" Association="Self.FK_Funzioni_Funzioni">
             <End Role="Funzioni" EntitySet="Funzioni" />
             <End Role="Funzioni1" EntitySet="Funzioni" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Funzioni_Ruoli" Association="Self.FK_Funzioni_Ruoli">
+            <End Role="Ruoli" EntitySet="Ruoli" />
+            <End Role="Funzioni" EntitySet="Funzioni" />
           </AssociationSet>
           <AssociationSet Name="FK_Utenti_Fornitori" Association="Self.FK_Utenti_Fornitori">
             <End Role="Fornitori" EntitySet="Fornitori" />
@@ -157,6 +216,7 @@
           <NavigationProperty Name="Fornitori" Relationship="Self.FK_Documenti_Fornitori" FromRole="Documenti" ToRole="Fornitori" />
           <Property Name="ContentType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Attivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Download" Relationship="PortaleFornitoriModel.FK_Download_Documento" FromRole="Documento" ToRole="Download" />
         </EntityType>
         <EntityType Name="Fornitore">
           <Key>
@@ -169,6 +229,7 @@
           <Property Name="Telefono" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Documenti" Relationship="Self.FK_Documenti_Fornitori" FromRole="Fornitori" ToRole="Documenti" />
           <NavigationProperty Name="Utenti" Relationship="PortaleFornitoriModel.FK_Utenti_Fornitori" FromRole="Fornitore" ToRole="Utenti" />
+          <NavigationProperty Name="Download" Relationship="PortaleFornitoriModel.FK_Download_Fornitore" FromRole="Fornitore" ToRole="Download" />
         </EntityType>
         <Association Name="FK_Documenti_Fornitori">
           <End Role="Fornitori" Type="PortaleFornitoriModel.Fornitore" Multiplicity="1" />
@@ -205,6 +266,19 @@
             <End Role="Funzioni1" EntitySet="Funzioni" />
           </AssociationSet>
           <EntitySet Name="sysdiagrams" EntityType="PortaleFornitoriModel.sysdiagrams" />
+          <EntitySet Name="Download" EntityType="PortaleFornitoriModel.Download" />
+          <AssociationSet Name="FK_Download_Documento" Association="PortaleFornitoriModel.FK_Download_Documento">
+            <End Role="Documento" EntitySet="Documenti" />
+            <End Role="Download" EntitySet="Download" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Download_Fornitore" Association="PortaleFornitoriModel.FK_Download_Fornitore">
+            <End Role="Fornitore" EntitySet="Fornitori" />
+            <End Role="Download" EntitySet="Download" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Funzioni_Ruoli" Association="PortaleFornitoriModel.FK_Funzioni_Ruoli">
+            <End Role="Ruolo" EntitySet="Ruoli" />
+            <End Role="Funzione" EntitySet="Funzioni" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Ruolo">
           <Key>
@@ -213,6 +287,7 @@
           <Property Name="IdRuolo" Type="Int32" Nullable="false" />
           <Property Name="DescrizioneRuolo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Utenti" Relationship="PortaleFornitoriModel.FK_Utenti_Ruoli" FromRole="Ruoli" ToRole="Utenti" />
+          <NavigationProperty Name="Funzioni" Relationship="PortaleFornitoriModel.FK_Funzioni_Ruoli" FromRole="Ruolo" ToRole="Funzione" />
         </EntityType>
         <EntityType Name="Utente">
           <Key>
@@ -257,13 +332,15 @@
             <PropertyRef Name="IdFunzione" />
           </Key>
           <Property Name="IdFunzione" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Icona" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Icona" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Descrizione" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Url" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="Abilitato" Type="Boolean" Nullable="false" />
           <Property Name="IdFunzionePadre" Type="Int32" />
           <NavigationProperty Name="Figli" Relationship="PortaleFornitoriModel.FK_Funzioni_Funzioni" FromRole="Funzioni" ToRole="Funzioni1" />
           <NavigationProperty Name="Padre" Relationship="PortaleFornitoriModel.FK_Funzioni_Funzioni" FromRole="Funzioni1" ToRole="Funzioni" />
+          <Property Name="IdRuolo" Type="Int32" />
+          <NavigationProperty Name="Ruoli" Relationship="PortaleFornitoriModel.FK_Funzioni_Ruoli" FromRole="Funzione" ToRole="Ruolo" />
         </EntityType>
         <Association Name="FK_Funzioni_Funzioni">
           <End Type="PortaleFornitoriModel.Funzione" Role="Funzioni" Multiplicity="0..1" />
@@ -287,6 +364,53 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="Download">
+          <Key>
+            <PropertyRef Name="IdDownload" />
+          </Key>
+          <Property Name="IdFornitore" Type="Int32" Nullable="false" />
+          <Property Name="IdDocumento" Type="Int32" Nullable="false" />
+          <Property Name="DataDownload" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdDownload" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Documenti" Relationship="PortaleFornitoriModel.FK_Download_Documento" FromRole="Download" ToRole="Documento" />
+          <NavigationProperty Name="Fornitori" Relationship="PortaleFornitoriModel.FK_Download_Fornitore" FromRole="Download" ToRole="Fornitore" />
+        </EntityType>
+        <Association Name="FK_Download_Documento">
+          <End Type="PortaleFornitoriModel.Documento" Role="Documento" Multiplicity="1" />
+          <End Type="PortaleFornitoriModel.Download" Role="Download" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documento">
+              <PropertyRef Name="IdDocumento" />
+            </Principal>
+            <Dependent Role="Download">
+              <PropertyRef Name="IdDocumento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Download_Fornitore">
+          <End Type="PortaleFornitoriModel.Fornitore" Role="Fornitore" Multiplicity="1" />
+          <End Type="PortaleFornitoriModel.Download" Role="Download" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornitore">
+              <PropertyRef Name="IdFornitore" />
+            </Principal>
+            <Dependent Role="Download">
+              <PropertyRef Name="IdFornitore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Funzioni_Ruoli">
+          <End Type="PortaleFornitoriModel.Ruolo" Role="Ruolo" Multiplicity="0..1" />
+          <End Type="PortaleFornitoriModel.Funzione" Role="Funzione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ruolo">
+              <PropertyRef Name="IdRuolo" />
+            </Principal>
+            <Dependent Role="Funzione">
+              <PropertyRef Name="IdRuolo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -342,6 +466,7 @@
           <EntitySetMapping Name="Funzioni">
             <EntityTypeMapping TypeName="PortaleFornitoriModel.Funzione">
               <MappingFragment StoreEntitySet="Funzioni">
+                <ScalarProperty Name="IdRuolo" ColumnName="IdRuolo" />
                 <ScalarProperty Name="IdFunzionePadre" ColumnName="IdFunzionePadre" />
                 <ScalarProperty Name="Abilitato" ColumnName="Abilitato" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
@@ -359,6 +484,16 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Download">
+            <EntityTypeMapping TypeName="PortaleFornitoriModel.Download">
+              <MappingFragment StoreEntitySet="Download">
+                <ScalarProperty Name="IdDownload" ColumnName="IdDownload" />
+                <ScalarProperty Name="DataDownload" ColumnName="DataDownload" />
+                <ScalarProperty Name="IdDocumento" ColumnName="IdDocumento" />
+                <ScalarProperty Name="IdFornitore" ColumnName="IdFornitore" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

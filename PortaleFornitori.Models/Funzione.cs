@@ -26,9 +26,11 @@ namespace PortaleFornitori.Models
         public string Url { get; set; }
         public bool Abilitato { get; set; }
         public Nullable<int> IdFunzionePadre { get; set; }
+        public Nullable<int> IdRuolo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Funzione> Figli { get; set; }
         public virtual Funzione Padre { get; set; }
+        public virtual Ruolo Ruoli { get; set; }
     }
 }

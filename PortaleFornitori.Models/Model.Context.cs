@@ -31,5 +31,6 @@ namespace PortaleFornitori.Models
         public virtual DbSet<Utente> Utenti { get; set; }
         public virtual DbSet<Funzione> Funzioni { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Download> Download { get; set; }
     }
 }

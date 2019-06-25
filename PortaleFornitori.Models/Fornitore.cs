@@ -19,6 +19,7 @@ namespace PortaleFornitori.Models
         {
             this.Documenti = new HashSet<Documento>();
             this.Utenti = new HashSet<Utente>();
+            this.Download = new HashSet<Download>();
         }
     
         public int IdFornitore { get; set; }
@@ -31,5 +32,7 @@ namespace PortaleFornitori.Models
         public virtual ICollection<Documento> Documenti { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Utente> Utenti { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Download> Download { get; set; }
     }
 }

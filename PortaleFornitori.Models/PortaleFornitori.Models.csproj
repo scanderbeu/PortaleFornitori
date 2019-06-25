@@ -53,6 +53,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="DocumentoDto.cs" />
+    <Compile Include="Download.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Fornitore.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

@@ -18,6 +18,7 @@ namespace PortaleFornitori.Models
         public Ruolo()
         {
             this.Utenti = new HashSet<Utente>();
+            this.Funzioni = new HashSet<Funzione>();
         }
     
         public int IdRuolo { get; set; }
@@ -25,5 +26,7 @@ namespace PortaleFornitori.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Utente> Utenti { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Funzione> Funzioni { get; set; }
     }
 }
