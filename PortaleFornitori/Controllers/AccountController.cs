@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PortaleFornitori.Helpers;
 using PortaleFornitori.Models;
 using PortaleFornitori.ViewModels.Account;
 using System;
@@ -35,74 +36,16 @@ namespace PortaleFornitori.Controllers
                 {
                     if (utente.Password == vm.Password)
                     {
-                        FormsAuthenticationTicket authTicket;
-
-                        if (utente.Fornitore == null)
-                        {
-                            authTicket = new FormsAuthenticationTicket(1, //version 
-                            utente.Email,
-                            DateTime.Now,
-                            DateTime.Now.AddDays(1), //Expiration
-                            true, //Persistent
-                            JsonConvert.SerializeObject(new
-                            {
-                                Cognome = utente.Cognome,
-                                Email = utente.Email,
-                                IdRuolo = utente.IdRuolo,
-                                IdUser = utente.IdUser,
-                                Nome = utente.Nome,
-                                Password = utente.Password,
-                                Ruolo = new
-                                {
-                                    DescrizioneRuolo = utente.Ruolo.DescrizioneRuolo,
-                                    IdRuolo = utente.Ruolo.IdRuolo,
-                                }
-                            },
-                            new JsonSerializerSettings
-                            {
+                        FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, //version 
+                        utente.Email,
+                        DateTime.Now,
+                        DateTime.Now.AddDays(1), //Expiration
+                        vm.RememberMe, //Persistent
+                        JsonConvert.SerializeObject(
+                            CookieHelper.GetUserData(utente), new JsonSerializerSettings {
                                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                             }));
-                        }
-                        else
-                        {
-
-                            //utente.Ruolo.Utenti = null;
-                            authTicket = new FormsAuthenticationTicket(1, //version 
-                                utente.Email,
-                                DateTime.Now,
-                                DateTime.Now.AddDays(1), //Expiration
-                                true, //Persistent
-                                JsonConvert.SerializeObject(new
-                                {
-                                    Cognome = utente.Cognome,
-                                    Email = utente.Email,
-                                    Fornitore = new
-                                    {
-                                        IdFornitore = utente.Fornitore.IdFornitore,
-                                        RagioneSociale = utente.Fornitore.RagioneSociale,
-                                        Indirizzo = utente.Fornitore.Indirizzo,
-                                        Citta = utente.Fornitore.Citta,
-                                        Telefono = utente.Fornitore.Telefono,
-                                        Documenti = utente.Fornitore.Documenti
-                                    },
-                                    IdRuolo = utente.IdRuolo,
-                                    IdUser = utente.IdUser,
-                                    Nome = utente.Nome,
-                                    Password = utente.Password,
-                                    Ruolo = new
-                                    {
-                                        DescrizioneRuolo = utente.Ruolo.DescrizioneRuolo,
-                                        IdRuolo = utente.Ruolo.IdRuolo,
-                                    }
-                                },
-                                new JsonSerializerSettings
-                                {
-                                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                                })
-                                )
-                                ;
-                        }
-
+                        
                         string encTicket = FormsAuthentication.Encrypt(authTicket);
 
                         var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);

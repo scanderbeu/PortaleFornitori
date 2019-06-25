@@ -254,6 +254,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CookieHelper.cs" />
     <Compile Include="Helpers\MenuHelper.cs" />
     <Compile Include="MyUserIdentity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
