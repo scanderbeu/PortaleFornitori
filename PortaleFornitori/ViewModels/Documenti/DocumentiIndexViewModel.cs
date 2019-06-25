@@ -72,7 +72,7 @@ namespace PortaleFornitori.ViewModels.Documenti
             }
             else if (vm.PaginaCorrente == vm.NumeroPagine)
             {
-                if (vm.NumeroPagine > vm.PaginaCorrente - 2)
+                if (vm.NumeroPagine > 2)
                 {
                     vm.PagineDaVisualizzare.Add(vm.PaginaCorrente - 2);
                 }
