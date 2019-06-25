@@ -86,6 +86,7 @@ namespace PortaleFornitori.Controllers
                         doc.DataCreazione = DateTime.Now;
                         doc.NomeFile = currentFile.FileName;
                         doc.ContentType = currentFile.ContentType;
+                        doc.Attivo = true;
                         Context.Documenti.Add(doc);
                         Context.SaveChanges();
                         success = true;
