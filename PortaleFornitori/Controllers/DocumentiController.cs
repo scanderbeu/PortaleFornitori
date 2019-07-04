@@ -40,11 +40,16 @@ namespace PortaleFornitori.Controllers
             if (currentIdentity.CurrentUser.Ruolo.DescrizioneRuolo == "Fornitore" )
             {
                 vm = DocumentiIndexViewModel.Load(Context, paginaCorrente,
-                    PageSize, (Documento doc) => doc.Attivo && doc.IdFornitore == currentIdentity.CurrentUser.IdFornitore.Value, true);
+                    PageSize, 
+                    (Documento doc) => doc.Attivo && doc.IdFornitore == currentIdentity.CurrentUser.IdFornitore.Value, 
+                    true);
             }
             else
             {
-                vm = DocumentiIndexViewModel.Load(Context, paginaCorrente, PageSize, (Documento doc) => doc.Attivo, false);
+                vm = DocumentiIndexViewModel.Load(Context, paginaCorrente, 
+                    PageSize, 
+                    (Documento doc) => doc.Attivo, 
+                    false);
             }
 
             return PartialView("_List", vm);
@@ -122,13 +127,19 @@ namespace PortaleFornitori.Controllers
                 return new HttpStatusCodeResult(500, "Documento non esistente");
             }
 
-            Context.Download.Add(new Download
+            // il Download deve essere registrato solo se l'utente è un Fornitore
+
+            if (currentIdentity.CurrentUser.Ruolo.DescrizioneRuolo == "Fornitore")
             {
-                IdDocumento = id,
-                IdFornitore = currentIdentity.CurrentUser.IdFornitore.Value,
-                DataDownload = DateTime.Now
-            });
-            Context.SaveChanges();
+
+                Context.Download.Add(new Download
+                {
+                    IdDocumento = id,
+                    IdFornitore = currentIdentity.CurrentUser.IdFornitore.Value,
+                    DataDownload = DateTime.Now
+                });
+                Context.SaveChanges();
+            }
             return File(documento.Contenuto, documento.ContentType);//,documento.NomeFile);
         }
 
