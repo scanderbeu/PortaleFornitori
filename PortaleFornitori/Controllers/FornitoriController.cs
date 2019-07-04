@@ -44,14 +44,20 @@ namespace PortaleFornitori.Controllers
             {
                 if (fornitore != null)
                 {
-                    Context.Entry(fornitore).State = System.Data.Entity.EntityState.Deleted;
-                    //Context.Utenti.Remove(utente);
-                    Context.SaveChanges();
-                    success = true;
+                    if (fornitore.Documenti.Count() == 0)
+                    {
+                        Context.Entry(fornitore).State = System.Data.Entity.EntityState.Deleted;
+                        //Context.Utenti.Remove(utente);
+                        Context.SaveChanges();
+                        success = true;
+                    }
+                    else {
+                        ModelState.AddModelError("Error", "Impossibile eliminare il fornitore");
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("Error", "Documento sconosciuto");
+                    ModelState.AddModelError("Error", "Fornitore sconosciuto");
                 }
             }
             catch (Exception ex)
